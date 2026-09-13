@@ -139,14 +139,21 @@ export function Insights({
   engagement: number;
   topics: { topic: string; count: number; positive: number; negative: number }[];
 }) {
-  const best = topics
-    .filter((t) => t.positive >= t.negative)
+  const best = [...topics]
+    .filter((t) => t.positive > t.negative)
+    .sort((a, b) => b.positive - a.positive)
     .slice(0, 3)
     .map((t) => t.topic);
-  const worst = topics
+  const worst = [...topics]
     .filter((t) => t.negative > t.positive)
+    .sort((a, b) => b.negative - a.negative)
     .slice(0, 3)
     .map((t) => t.topic);
+
+  const recommendation =
+    worst.length > 0
+      ? `Focus on ${worst.join(" and ")} to address the most common complaints and lift satisfaction.`
+      : "No dominant complaint areas detected — keep monitoring feedback as volume grows.";
 
   const items = [
     {
@@ -171,7 +178,7 @@ export function Insights({
       icon: Lightbulb,
       tone: "text-violet bg-violet-soft",
       title: "Recommendation",
-      body: "Focus on battery and heating fixes and improve software stability to lift satisfaction.",
+      body: recommendation,
     },
   ];
 

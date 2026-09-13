@@ -52,7 +52,7 @@ export function topUsers(list: Post[], n = 6) {
 }
 
 export function platformData(list: Post[]) {
-  const platforms = ["Twitter", "Facebook", "Instagram", "YouTube", "Others"];
+  const platforms = Array.from(new Set(list.map((p) => p.platform)));
   return platforms.map((name) => ({
     name,
     count: list.filter((p) => p.platform === name).length,

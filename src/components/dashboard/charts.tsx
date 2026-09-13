@@ -88,8 +88,8 @@ export function DonutChart({
           <Pie
             data={data}
             dataKey="value"
-            innerRadius={62}
-            outerRadius={95}
+            innerRadius="65%"
+            outerRadius="90%"
             paddingAngle={1}
             stroke="none"
           >
@@ -117,10 +117,7 @@ export function PlatformChart({ data }: { data: { name: string; count: number }[
         <Tooltip {...tooltipStyle} cursor={{ fill: "var(--color-muted)" }} />
         <Bar dataKey="count" radius={[4, 4, 0, 0]} maxBarSize={46}>
           {data.map((d) => (
-            <Cell
-              key={d.name}
-              fill={d.count ? "var(--color-info)" : "var(--color-negative)"}
-            />
+            <Cell key={d.name} fill="var(--color-info)" />
           ))}
         </Bar>
       </BarChart>

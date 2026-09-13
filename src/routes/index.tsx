@@ -107,14 +107,13 @@ function Dashboard() {
         </header>
 
         <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
-          <KpiCard label="Total Posts" value={String(s.total)} icon={MessageSquare} tone="info" delta={{ value: "12%", up: true }} />
+          <KpiCard label="Total Posts" value={String(s.total)} icon={MessageSquare} tone="info" />
           <KpiCard
             label="Positive Sentiment"
             value={`${s.positivePct.toFixed(1)}%`}
             sub={`${s.positive} posts`}
             icon={Smile}
             tone="positive"
-            delta={{ value: "8%", up: true }}
           />
           <KpiCard
             label="Negative Sentiment"
@@ -122,7 +121,6 @@ function Dashboard() {
             sub={`${s.negative} posts`}
             icon={Frown}
             tone="negative"
-            delta={{ value: "5%", up: false }}
           />
           <KpiCard
             label="Neutral Sentiment"
@@ -130,14 +128,12 @@ function Dashboard() {
             sub={`${s.neutral} posts`}
             icon={Meh}
             tone="neutral"
-            delta={{ value: "3%", up: false }}
           />
           <KpiCard
             label="Total Engagement"
             value={String(s.engagement)}
             icon={Users}
             tone="violet"
-            delta={{ value: "18%", up: true }}
           />
         </div>
 
