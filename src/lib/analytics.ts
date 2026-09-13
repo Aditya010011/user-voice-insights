@@ -59,6 +59,30 @@ export function platformData(list: Post[]) {
   }));
 }
 
+export function avgBySentiment(list: Post[]) {
+  const sentiments: Sentiment[] = ["Positive", "Negative", "Neutral"];
+  return sentiments.map((sentiment) => {
+    const matched = list.filter((p) => p.sentiment === sentiment);
+    const n = matched.length;
+    const avgLikes = n ? matched.reduce((sum, p) => sum + p.likes, 0) / n : 0;
+    const avgRetweets = n ? matched.reduce((sum, p) => sum + p.retweets, 0) / n : 0;
+    return {
+      sentiment,
+      avgLikes: Number(avgLikes.toFixed(1)),
+      avgRetweets: Number(avgRetweets.toFixed(1)),
+    };
+  });
+}
+
+export function followersVsLikes(list: Post[]) {
+  return list.map((p) => ({
+    followers: p.followers,
+    likes: p.likes,
+    sentiment: p.sentiment,
+    user: p.user,
+  }));
+}
+
 export function topicCounts(list: Post[]) {
   const entries = Object.entries(topicKeywords).map(([topic, keys]) => {
     const matched = list.filter((p) =>

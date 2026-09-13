@@ -4,7 +4,9 @@ import { Calendar, ChevronDown, Frown, Meh, MessageSquare, Smile, Users } from "
 import { Sidebar } from "@/components/dashboard/Sidebar";
 import { KpiCard } from "@/components/dashboard/KpiCard";
 import {
+  AvgBySentimentChart,
   DonutChart,
+  FollowersLikesScatter,
   PlatformChart,
   StackedPlatformChart,
   TrendChart,
@@ -18,7 +20,9 @@ import {
   WordCloud,
 } from "@/components/dashboard/panels";
 import {
+  avgBySentiment,
   filterPosts,
+  followersVsLikes,
   platformData,
   summarize,
   topLiked,
@@ -64,6 +68,8 @@ function Dashboard() {
   const s = useMemo(() => summarize(list), [list]);
   const trend = useMemo(() => trendData(list), [list]);
   const topics = useMemo(() => topicCounts(list), [list]);
+  const avgSentiment = useMemo(() => avgBySentiment(list), [list]);
+  const followersLikes = useMemo(() => followersVsLikes(list), [list]);
 
   const donut = [
     { name: "Positive", value: s.positive, color: "var(--color-positive)" },
@@ -159,6 +165,15 @@ function Dashboard() {
           </Panel>
           <Panel title="Posts by Platform">
             <PlatformChart data={platformData(list)} />
+          </Panel>
+        </div>
+
+        <div className="mt-4 grid gap-4 xl:grid-cols-2">
+          <Panel title="Average Likes & Retweets by Sentiment">
+            <AvgBySentimentChart data={avgSentiment} />
+          </Panel>
+          <Panel title="Followers vs Likes by Sentiment">
+            <FollowersLikesScatter data={followersLikes} />
           </Panel>
         </div>
 
